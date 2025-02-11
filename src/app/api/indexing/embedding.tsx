@@ -14,7 +14,7 @@ export interface EmbeddingConfig {
 
 const DEFAULT_CONFIG: EmbeddingConfig = {
   maxBatchSize: 5, 
-  modelId: // TODO: Embedding Model Identified
+  modelId: 'textembedding-gecko@003',
   location: process.env.GCP_REGION || 'europe-west1',
   dimensionality: 768
 };

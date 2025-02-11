@@ -80,8 +80,8 @@ export class DocumentProcessor {
 
       // Step 3: Create chunks from content
       console.log('🟦 Creating chunks from content...');
-      // const chunks = this.createChunks(scrapedContent);
-      const chunks =  await docChunker.chunkText(content.cleanHTML);
+      const chunks = this.createChunks(content.cleanHTML);
+      // const chunks =  await docChunker.chunkText(content.cleanHTML);
       console.log(`🟦 Created ${chunks.length} chunks`);
       if (chunks.length > 0) {
         console.log('🟦 Sample chunk sizes:', chunks.slice(0, 3).map(chunk => chunk.length));
@@ -153,7 +153,7 @@ export class DocumentProcessor {
     batchSize: number = 50
   ): Promise<void> {
     const maxRetries = 10;
-    const retryDelay = 8000; // 5 seconds
+    const retryDelay = 5000; // 5 seconds
 
     for (let i = 0; i < chunks.length; i += batchSize) {
       const batch = chunks.slice(i, i + batchSize);
@@ -210,7 +210,7 @@ export class DocumentProcessor {
 
     for (const section of sections) {
       // If adding this section would exceed maxChunkSize, save current chunk and start new one
-      if (currentChunk && (currentChunk.length + section.length + 2) > maxChunkSize) {
+      if (currentChunk && (currentChunk.length + section.length) > maxChunkSize) {
         if (currentChunk.trim()) {
           chunks.push(currentChunk.trim());
         }
