@@ -120,8 +120,9 @@ export class GeminiService {
             const model = this.getModel(options);
 
             // TODO: Gemini Content Generation
+            const result = await model.generateContent(prompt)
 
-            const response = await result.response;
+            const response =  result.response;
             return response.text();
         } catch (error) {
             console.error('Error in Gemini content generation:', error);

@@ -6,13 +6,14 @@ import { PromptTemplate } from "@langchain/core/prompts";
 const docScraper = new DocumentScraper();
 
 // Create extraction prompt template
-const extractionPrompt = PromptTemplate.fromTemplate(``);
+const extractionPrompt = PromptTemplate.fromTemplate(`Extract full original content from {htmlContent} which describes {entityDescription} saving 
+ text structure and code formatting, exclude from the result navigation and boilerplate sections and html tags.`);
 
 export async function POST(request: NextRequest) {
   try {
     const { urls, entityDescription } = await request.json();
     console.log("Content Extraction for: ", urls, entityDescription)
-    const geminiService = initializeGeminiService("gemini-1.5-flash-8b");
+    const geminiService = initializeGeminiService("gemini-2.0-pro-exp-02-05");
 
     if (!urls || !Array.isArray(urls) || urls.length === 0) {
       return NextResponse.json({
